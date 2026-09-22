@@ -150,29 +150,33 @@
       ego and roadside views, a bird's-eye view with the recorded trajectory and
       the planners' trajectories, and the command and final displacement error of
       each planner. Every value shown is read from the evaluation artifacts.
+      UniV2X's raw command ids are not mapped onto the benchmark command
+      vocabulary, so no command is shown for it, matching the dashes in the
+      table below. These three sequences are selected examples, not an average;
+      the aggregate over all 654 validation examples is in the table.
     </p>
 
     <div class="switch" role="tablist" aria-label="Choose a sequence">
       <button role="tab" aria-selected="true"
-              data-src="static/videos/covlm_planning_seq0058.mp4"
-              data-caption="Sequence 0058 &middot; a signalised intersection with roadside-only traffic on the far approach.">Sequence 0058</button>
-      <button role="tab" aria-selected="false"
-              data-src="static/videos/covlm_planning_seq0092.mp4"
-              data-caption="Sequence 0092 &middot; a busy crossing where much of the scene is observed only from the roadside.">Sequence 0092</button>
+              data-src="static/videos/covlm_planning_seq0085.mp4"
+              data-caption="Sequence 0085 &middot; 16.5&nbsp;s, a right turn. On average 9.6 objects per frame are annotated only in the roadside view. Mean FDE over the clip: CoVLM-Drive 3.79&nbsp;m, UniMM-V2X 5.60&nbsp;m, UniV2X 5.61&nbsp;m.">Sequence 0085</button>
       <button role="tab" aria-selected="false"
               data-src="static/videos/covlm_planning_seq0021.mp4"
-              data-caption="Sequence 0021 &middot; an approach and turn, with the planners' endpoint error traced across the clip.">Sequence 0021</button>
+              data-caption="Sequence 0021 &middot; 18.5&nbsp;s, a left turn through an intersection. Mean FDE over the clip: CoVLM-Drive 2.45&nbsp;m, UniMM-V2X 3.36&nbsp;m, UniV2X 5.36&nbsp;m.">Sequence 0021</button>
+      <button role="tab" aria-selected="false"
+              data-src="static/videos/covlm_planning_seq0015.mp4"
+              data-caption="Sequence 0015 &middot; 16.5&nbsp;s, an approach and left turn. Mean FDE over the clip: CoVLM-Drive 3.16&nbsp;m, UniMM-V2X 6.71&nbsp;m, UniV2X 6.22&nbsp;m.">Sequence 0015</button>
     </div>
 
     <div class="player">
       <video id="demo-video" controls preload="metadata" playsinline
              poster="static/images/demo_poster.jpg">
-        <source id="demo-source" src="static/videos/covlm_planning_seq0058.mp4" type="video/mp4">
+        <source id="demo-source" src="static/videos/covlm_planning_seq0085.mp4" type="video/mp4">
         Your browser does not support the video tag.
       </video>
     </div>
     <p class="caption" id="demo-caption">
-      Sequence 0058 &middot; a signalised intersection with roadside-only traffic on the far approach.
+      Sequence 0085 &middot; 16.5&nbsp;s, a right turn. On average 9.6 objects per frame are annotated only in the roadside view. Mean FDE over the clip: CoVLM-Drive 3.79&nbsp;m, UniMM-V2X 5.60&nbsp;m, UniV2X 5.61&nbsp;m.
     </p>
   </div>
 </section>
