@@ -1,0 +1,21 @@
+CoVLM-Bench
+Copyright (c) 2026 The CoVLM-Bench authors
+
+This product includes software developed at AIR-THU:
+  UniV2X -- https://github.com/AIR-THU/UniV2X
+The upstream UniV2X code is distributed under the Apache License 2.0, and its
+attribution is kept in the source headers where present. The files under
+projects/mmdet3d_plugin/, projects/configs_e2e_univ2x/, tools/spd_data_converter/
+and tools/spd_evaluator/ are derived from that project.
+
+The compared planners UniV2X, UniMM-V2X, and MAP are prior work by their
+respective authors. This repository reproduces them under a shared evaluation
+protocol and does not claim authorship of those methods.
+
+CoVLM-Bench is built on paired frames from V2X-Seq-SPD / DAIR-V2X-Seq. The
+underlying images and cooperative labels are obtained from that dataset under
+its own access terms and are not redistributed here.
+
+The CoVLM-Drive baseline, the benchmark annotation layers, and the documentation
+in this repository are contributed by the CoVLM-Bench authors and are licensed
+under the Apache License 2.0.

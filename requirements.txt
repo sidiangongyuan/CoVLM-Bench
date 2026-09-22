@@ -1,0 +1,23 @@
+# CoVLM-Drive (cooperative planning) -- the environment the reported CP runs used.
+# Install PyTorch for your own CUDA build first; the pin below is CUDA 12.8.
+torch==2.8.0
+torchvision==0.23.0
+
+transformers==4.57.1
+tokenizers==0.22.1
+peft==0.19.1
+accelerate==1.11.0
+safetensors==0.6.2
+sentencepiece==0.2.1
+qwen-vl-utils==0.0.14
+
+numpy==2.1.2
+scipy==1.15.3
+pillow==11.3.0
+einops==0.8.1
+PyYAML==6.0.3
+tqdm==4.67.1
+psutil==7.1.3
+
+# Reproducing UniV2X, UniMM-V2X, and MAP needs a separate mmdetection3d
+# environment; see docs/BASELINES.md and requirements-univ2x.txt.

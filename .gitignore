@@ -1,0 +1,34 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.venv/
+venv/
+
+# Experiment artifacts (repository root only, so that source directories
+# named data/ or datasets/ are still tracked)
+/data/
+/datasets/
+/output/
+/outputs/
+/work_dirs/
+/ckpts/
+/checkpoints/
+/build/
+/dist/
+/wandb/
+*.pth
+*.pt
+*.safetensors
+*.pkl
+
+# Editors and OS
+.vscode/
+.idea/
+.DS_Store
+*.swp
+
+# Logs
+*.log
+nohup.out

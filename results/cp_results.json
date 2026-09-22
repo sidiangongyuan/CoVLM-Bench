@@ -1,0 +1,316 @@
+{
+  "task": "Cooperative Planning (CP)",
+  "split": "validation",
+  "examples": 654,
+  "horizon_seconds": 3.0,
+  "waypoints": 6,
+  "metric_definitions": {
+    "l2_m": "mean Euclidean distance between predicted and reference waypoints at the given horizon",
+    "fde_m": "final displacement error, i.e. L2 at 3.0 s",
+    "command_accuracy": "command classification accuracy",
+    "balanced_accuracy": "recall averaged over the command classes present in the validation split",
+    "parse_rate_pct": "percentage of zero-shot responses containing a valid command and six waypoints",
+    "latency_ms": "structured planning inference, batch size one on an RTX 4090",
+    "memory_gib": "peak inference memory"
+  },
+  "notes": {
+    "dagger": "our protocol-aligned reproduction",
+    "asterisk": "additionally uses ego status",
+    "univ2x": "evaluated from the released predictions",
+    "dashes": "null denotes an unreported or inapplicable entry"
+  },
+  "groups": [
+    {
+      "name": "Task-trained V2X planners",
+      "rows": [
+        {
+          "method": "UniV2X",
+          "l2_m": {
+            "0.5": 1.245,
+            "1.0": 2.079,
+            "1.5": 2.888,
+            "2.0": 3.831,
+            "2.5": 4.843
+          },
+          "fde_m": 5.861,
+          "command_accuracy": null,
+          "balanced_accuracy": null,
+          "parse_rate_pct": null,
+          "latency_ms": 812.7,
+          "fps": 1.23,
+          "memory_gib": 2.86,
+          "note": "released predictions"
+        },
+        {
+          "method": "UniMM-V2X",
+          "l2_m": {
+            "0.5": 0.893,
+            "1.0": 1.677,
+            "1.5": 2.528,
+            "2.0": 3.427,
+            "2.5": 4.336
+          },
+          "fde_m": 5.357,
+          "command_accuracy": 0.8165,
+          "balanced_accuracy": 0.6604,
+          "parse_rate_pct": null,
+          "latency_ms": 523.9,
+          "fps": 1.91,
+          "memory_gib": 3.29,
+          "note": "our reproduction"
+        },
+        {
+          "method": "MAP",
+          "l2_m": {
+            "0.5": 0.601,
+            "1.0": 1.408,
+            "1.5": 2.297,
+            "2.0": 3.233,
+            "2.5": 4.2
+          },
+          "fde_m": 5.24,
+          "command_accuracy": 0.8394,
+          "balanced_accuracy": 0.7297,
+          "parse_rate_pct": null,
+          "latency_ms": 588.6,
+          "fps": 1.7,
+          "memory_gib": 2.71,
+          "note": "our reproduction"
+        }
+      ]
+    },
+    {
+      "name": "CoVLM-Drive backbone variants",
+      "rows": [
+        {
+          "method": "Qwen3-VL-8B (standard CP)",
+          "l2_m": {
+            "0.5": 0.812,
+            "1.0": 1.5,
+            "1.5": 2.283,
+            "2.0": 3.119,
+            "2.5": 3.998
+          },
+          "fde_m": 4.911,
+          "command_accuracy": 0.7706,
+          "balanced_accuracy": 0.5661,
+          "parse_rate_pct": null,
+          "latency_ms": 223.1,
+          "fps": 4.48,
+          "memory_gib": 17.08,
+          "note": "standard configuration"
+        },
+        {
+          "method": "Qwen3-VL-8B + ego status",
+          "l2_m": {
+            "0.5": 0.798,
+            "1.0": 1.515,
+            "1.5": 2.33,
+            "2.0": 3.207,
+            "2.5": 4.136
+          },
+          "fde_m": 5.126,
+          "command_accuracy": 0.7401,
+          "balanced_accuracy": 0.5497,
+          "parse_rate_pct": null,
+          "latency_ms": 180.1,
+          "fps": 5.55,
+          "memory_gib": 17.11,
+          "note": "ego-status variant"
+        },
+        {
+          "method": "Qwen2.5-VL-7B",
+          "l2_m": {
+            "0.5": 0.832,
+            "1.0": 1.53,
+            "1.5": 2.364,
+            "2.0": 3.241,
+            "2.5": 4.165
+          },
+          "fde_m": 5.12,
+          "command_accuracy": 0.7569,
+          "balanced_accuracy": 0.5355,
+          "parse_rate_pct": null,
+          "latency_ms": 273.8,
+          "fps": 3.65,
+          "memory_gib": 16.23
+        },
+        {
+          "method": "InternVL3-8B",
+          "l2_m": {
+            "0.5": 0.811,
+            "1.0": 1.493,
+            "1.5": 2.31,
+            "2.0": 3.145,
+            "2.5": 4.077
+          },
+          "fde_m": 5.076,
+          "command_accuracy": 0.7324,
+          "balanced_accuracy": 0.5557,
+          "parse_rate_pct": null,
+          "latency_ms": 305.1,
+          "fps": 3.28,
+          "memory_gib": 16.08
+        },
+        {
+          "method": "LLaVA-OneVision-7B",
+          "l2_m": {
+            "0.5": 0.825,
+            "1.0": 1.555,
+            "1.5": 2.388,
+            "2.0": 3.284,
+            "2.5": 4.238
+          },
+          "fde_m": 5.272,
+          "command_accuracy": 0.7385,
+          "balanced_accuracy": 0.5309,
+          "parse_rate_pct": null,
+          "latency_ms": 280.9,
+          "fps": 3.56,
+          "memory_gib": 16.19
+        },
+        {
+          "method": "Idefics3-8B",
+          "l2_m": {
+            "0.5": 0.876,
+            "1.0": 1.691,
+            "1.5": 2.584,
+            "2.0": 3.525,
+            "2.5": 4.519
+          },
+          "fde_m": 5.538,
+          "command_accuracy": 0.7492,
+          "balanced_accuracy": 0.585,
+          "parse_rate_pct": null,
+          "latency_ms": 1070.6,
+          "fps": 0.93,
+          "memory_gib": 19.24
+        }
+      ]
+    },
+    {
+      "name": "Zero-shot VLMs",
+      "rows": [
+        {
+          "method": "Qwen3-VL-4B",
+          "l2_m": {
+            "0.5": 3.853,
+            "1.0": 7.251,
+            "1.5": 10.986,
+            "2.0": 14.827,
+            "2.5": 18.754
+          },
+          "fde_m": 22.751,
+          "command_accuracy": 0.6055,
+          "balanced_accuracy": 0.2235,
+          "parse_rate_pct": 96.3,
+          "latency_ms": null,
+          "fps": null,
+          "memory_gib": null
+        },
+        {
+          "method": "Qwen3-VL-8B",
+          "l2_m": {
+            "0.5": 1.911,
+            "1.0": 3.64,
+            "1.5": 5.444,
+            "2.0": 7.311,
+            "2.5": 9.24
+          },
+          "fde_m": 11.227,
+          "command_accuracy": 0.6468,
+          "balanced_accuracy": 0.2387,
+          "parse_rate_pct": 100.0,
+          "latency_ms": null,
+          "fps": null,
+          "memory_gib": null
+        },
+        {
+          "method": "Qwen2.5-VL-3B",
+          "l2_m": {
+            "0.5": 3.996,
+            "1.0": 6.784,
+            "1.5": 10.172,
+            "2.0": 13.582,
+            "2.5": 17.0
+          },
+          "fde_m": 20.426,
+          "command_accuracy": 0.2202,
+          "balanced_accuracy": 0.0813,
+          "parse_rate_pct": 34.4,
+          "latency_ms": null,
+          "fps": null,
+          "memory_gib": null
+        },
+        {
+          "method": "Qwen2.5-VL-7B",
+          "l2_m": {
+            "0.5": 3.803,
+            "1.0": 7.132,
+            "1.5": 10.618,
+            "2.0": 14.153,
+            "2.5": 17.711
+          },
+          "fde_m": 21.284,
+          "command_accuracy": 0.6774,
+          "balanced_accuracy": 0.25,
+          "parse_rate_pct": 100.0,
+          "latency_ms": null,
+          "fps": null,
+          "memory_gib": null
+        },
+        {
+          "method": "InternVL3-8B",
+          "l2_m": {
+            "0.5": 3.581,
+            "1.0": 6.828,
+            "1.5": 10.108,
+            "2.0": 13.397,
+            "2.5": 16.698
+          },
+          "fde_m": 20.007,
+          "command_accuracy": 0.6774,
+          "balanced_accuracy": 0.25,
+          "parse_rate_pct": 100.0,
+          "latency_ms": null,
+          "fps": null,
+          "memory_gib": null
+        },
+        {
+          "method": "LLaVA-OneVision-7B",
+          "l2_m": {
+            "0.5": 5.324,
+            "1.0": 77.449,
+            "1.5": 152.437,
+            "2.0": 227.498,
+            "2.5": 302.597
+          },
+          "fde_m": 377.721,
+          "command_accuracy": 0.6774,
+          "balanced_accuracy": 0.25,
+          "parse_rate_pct": 100.0,
+          "latency_ms": null,
+          "fps": null,
+          "memory_gib": null
+        },
+        {
+          "method": "Idefics3-8B",
+          "l2_m": {
+            "0.5": 9.099,
+            "1.0": 10.854,
+            "1.5": 14.049,
+            "2.0": 17.434,
+            "2.5": 21.606
+          },
+          "fde_m": 25.945,
+          "command_accuracy": 0.6606,
+          "balanced_accuracy": 0.2438,
+          "parse_rate_pct": 99.8,
+          "latency_ms": null,
+          "fps": null,
+          "memory_gib": null
+        }
+      ]
+    }
+  ]
+}
