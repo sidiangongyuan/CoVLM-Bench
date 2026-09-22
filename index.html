@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CoVLM-Bench &middot; Cooperative Driving Question Answering and Planning</title>
+<meta name="description" content="CoVLM-Bench is a real-world benchmark for cooperative driving question answering and planning on paired vehicle- and infrastructure-side scenes.">
+
+<meta property="og:title" content="CoVLM-Bench">
+<meta property="og:description" content="A real-world benchmark for cooperative driving question answering and planning.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="static/images/teaser.jpg">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>&#128664;</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="static/css/index.css">
+</head>
+<body>
+
+<!-- ============================================================= hero -->
+<section class="hero-video">
+  <video id="hero-video" class="hero-video__media" autoplay muted loop playsinline
+         preload="metadata" poster="static/images/hero_poster.jpg" aria-hidden="true" tabindex="-1">
+    <source src="static/videos/hero_loop.mp4" type="video/mp4">
+  </video>
+  <div class="hero-video__scrim"></div>
+
+  <div class="hero-video__body">
+    <span class="hero-eyebrow">Vehicle &ndash; Infrastructure Cooperative Driving</span>
+    <h1 class="hero-title">CoVLM-Bench</h1>
+    <p class="hero-subtitle">
+      A Real-World Benchmark for Cooperative Driving<br>Question Answering and Planning
+    </p>
+
+    <p class="hero-authors">Author list coming with the preprint</p>
+    <p class="hero-affil">&nbsp;</p>
+
+    <div class="btn-row">
+      <span class="btn btn-muted">Paper &middot; coming soon</span>
+      <span class="btn btn-muted">arXiv &middot; coming soon</span>
+      <a class="btn btn-solid" href="https://github.com/sidiangongyuan/CoVLM-Bench">
+        <span>&#9733;</span> Code
+      </a>
+      <a class="btn btn-ghost" href="#demo">Watch the demo</a>
+      <span class="btn btn-muted">Annotations &middot; coming soon</span>
+    </div>
+
+    <p class="hero-note">
+      Background: a validation sequence from V2X-Seq-SPD, shown unmodified.
+    </p>
+  </div>
+</section>
+
+<!-- ========================================================= abstract -->
+<section class="section" id="abstract">
+  <div class="wrap-narrow">
+    <h2 class="section-title">Abstract</h2>
+    <div class="prose">
+      <p>
+        Vision&ndash;language models have made substantial progress in autonomous
+        driving, but their success has primarily been studied in ego-centric
+        scenes. Infrastructure-side observations provide views beyond the ego
+        vehicle's field of view, yet conventional cooperative-driving systems
+        typically transform them into geometric representations for downstream
+        perception and planning. Directly incorporating these views into VLMs
+        offers an opportunity to improve cooperative scene understanding and
+        trajectory planning. However, question answering and trajectory planning
+        have not been jointly evaluated on the same real-world
+        vehicle&ndash;infrastructure scenes.
+      </p>
+      <p>
+        We present <strong>CoVLM-Bench</strong>, a benchmark for cooperative
+        driving question answering (CDQA) and cooperative planning (CP) on
+        vehicle&ndash;infrastructure paired scenes. It provides scene-grounded
+        CDQA annotations, three-part rationales as auxiliary supervision, and
+        future trajectory targets derived from recorded ego motion. It contains
+        2,196 paired frames with 35,136 CDQA annotations, while CP predicts six
+        waypoints over a three-second horizon. The annotations combine
+        model-assisted drafting, record-based computation, and human
+        verification. Built upon CoVLM-Bench, we introduce
+        <strong>CoVLM-Drive</strong>, a unified VLM baseline that directly uses
+        paired views for both tasks. Experiments show that CDQA adaptation
+        improves answer accuracy and that CoVLM-Drive reaches a lower FDE than
+        the compared V2X planners; QA initialization and rationale supervision
+        each reduce planning error.
+      </p>
+    </div>
+
+    <div class="stats">
+      <div class="stat"><div class="stat__n">2,196</div><div class="stat__l">paired frames</div></div>
+      <div class="stat"><div class="stat__n">35,136</div><div class="stat__l">CDQA annotations</div></div>
+      <div class="stat"><div class="stat__n">654</div><div class="stat__l">CP validation examples</div></div>
+      <div class="stat"><div class="stat__n">3 s</div><div class="stat__l">planning horizon, 6 waypoints</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ tasks -->
+<section class="section section-alt">
+  <div class="wrap">
+    <h2 class="section-title">Two tasks, one set of scenes</h2>
+    <p class="section-lead">
+      Both tasks are annotated on the same paired vehicle- and
+      infrastructure-side frames, so understanding and planning are measured on
+      identical scenes.
+    </p>
+    <div class="tasks">
+      <div class="task">
+        <span class="tag">CDQA</span>
+        <h3>Cooperative driving question answering</h3>
+        <p>
+          Scene-grounded questions over traffic participants, ego maneuvers, and
+          roadside observations, answered from the paired views and a neutral
+          object catalog.
+        </p>
+      </div>
+      <div class="task">
+        <span class="tag">CP</span>
+        <h3>Cooperative planning</h3>
+        <p>
+          Six waypoints over a three-second horizon, with targets derived from
+          recorded ego motion, scored by L2 at each horizon and by final
+          displacement error.
+        </p>
+      </div>
+      <div class="task">
+        <span class="tag">Auxiliary</span>
+        <h3>Three-part rationales</h3>
+        <p>
+          Scene overview, V2X-aware critical objects, and decision reasoning,
+          provided as additional supervision rather than as a separate task.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================= demo -->
+<section class="section" id="demo">
+  <div class="wrap">
+    <h2 class="section-title">Cooperative planning in motion</h2>
+    <p class="section-lead">
+      Consecutive validation frames at 0.5&nbsp;s intervals. Each frame shows the
+      ego and roadside views, a bird's-eye view with the recorded trajectory and
+      the planners' trajectories, and the command and final displacement error of
+      each planner. Every value shown is read from the evaluation artifacts.
+    </p>
+
+    <div class="switch" role="tablist" aria-label="Choose a sequence">
+      <button role="tab" aria-selected="true"
+              data-src="static/videos/covlm_planning_seq0058.mp4"
+              data-caption="Sequence 0058 &middot; a signalised intersection with roadside-only traffic on the far approach.">Sequence 0058</button>
+      <button role="tab" aria-selected="false"
+              data-src="static/videos/covlm_planning_seq0092.mp4"
+              data-caption="Sequence 0092 &middot; a busy crossing where much of the scene is observed only from the roadside.">Sequence 0092</button>
+      <button role="tab" aria-selected="false"
+              data-src="static/videos/covlm_planning_seq0021.mp4"
+              data-caption="Sequence 0021 &middot; an approach and turn, with the planners' endpoint error traced across the clip.">Sequence 0021</button>
+    </div>
+
+    <div class="player">
+      <video id="demo-video" controls preload="metadata" playsinline
+             poster="static/images/demo_poster.jpg">
+        <source id="demo-source" src="static/videos/covlm_planning_seq0058.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+    </div>
+    <p class="caption" id="demo-caption">
+      Sequence 0058 &middot; a signalised intersection with roadside-only traffic on the far approach.
+    </p>
+  </div>
+</section>
+
+<!-- ======================================================== framework -->
+<section class="section section-alt">
+  <div class="wrap">
+    <h2 class="section-title">CoVLM-Drive</h2>
+    <p class="section-lead">
+      A unified VLM baseline: the ego image, the roadside image, and the prompt
+      enter a single input sequence; the backbone is adapted with LoRA; and
+      structured command and waypoint heads read the pooled prompt
+      representation.
+    </p>
+    <div class="fig"><img src="static/images/framework.png" alt="CoVLM-Drive framework"></div>
+  </div>
+</section>
+
+<!-- ========================================================== results -->
+<section class="section" id="results">
+  <div class="wrap">
+    <h2 class="section-title">Cooperative planning results</h2>
+    <p class="section-lead">
+      654 validation examples. L2 is the mean distance to the reference waypoints
+      at each horizon and FDE is L2 at 3.0&nbsp;s. Efficiency uses batch size one
+      on an RTX&nbsp;4090.
+    </p>
+
+    <div class="table-scroll">
+      <table class="results">
+        <thead>
+          <tr>
+            <th>Method</th><th>1.0 s</th><th>2.0 s</th><th>FDE &darr;</th>
+            <th>Cmd Acc. &uarr;</th><th>Lat. (ms) &darr;</th><th>FPS &uarr;</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="group"><td colspan="7">Task-trained V2X planners</td></tr>
+          <tr><td>UniV2X</td><td>2.079</td><td>3.831</td><td class="fde">5.861</td><td>&ndash;</td><td>812.7</td><td>1.23</td></tr>
+          <tr><td>UniMM-V2X&dagger;</td><td>1.677</td><td>3.427</td><td class="fde">5.357</td><td>0.8165</td><td>523.9</td><td>1.91</td></tr>
+          <tr><td>MAP&dagger;</td><td>1.408</td><td>3.233</td><td class="fde">5.240</td><td>0.8394</td><td>588.6</td><td>1.70</td></tr>
+
+          <tr class="group"><td colspan="7">CoVLM-Drive backbone variants</td></tr>
+          <tr class="hi"><td>Qwen3-VL-8B &middot; standard CP</td><td>1.500</td><td>3.119</td><td class="fde">4.911</td><td>0.7706</td><td>223.1</td><td>4.48</td></tr>
+          <tr><td>Qwen3-VL-8B + ego status</td><td>1.515</td><td>3.207</td><td class="fde">5.126</td><td>0.7401</td><td>180.1</td><td>5.55</td></tr>
+          <tr><td>Qwen2.5-VL-7B</td><td>1.530</td><td>3.241</td><td class="fde">5.120</td><td>0.7569</td><td>273.8</td><td>3.65</td></tr>
+          <tr><td>InternVL3-8B</td><td>1.493</td><td>3.145</td><td class="fde">5.076</td><td>0.7324</td><td>305.1</td><td>3.28</td></tr>
+          <tr><td>LLaVA-OneVision-7B</td><td>1.555</td><td>3.284</td><td class="fde">5.272</td><td>0.7385</td><td>280.9</td><td>3.56</td></tr>
+          <tr><td>Idefics3-8B</td><td>1.691</td><td>3.525</td><td class="fde">5.538</td><td>0.7492</td><td>1070.6</td><td>0.93</td></tr>
+
+          <tr class="group"><td colspan="7">Zero-shot VLMs</td></tr>
+          <tr><td>Qwen3-VL-8B</td><td>3.640</td><td>7.311</td><td class="fde">11.227</td><td>0.6468</td><td>&ndash;</td><td>&ndash;</td></tr>
+          <tr><td>InternVL3-8B</td><td>6.828</td><td>13.397</td><td class="fde">20.007</td><td>0.6774</td><td>&ndash;</td><td>&ndash;</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p class="caption">
+      &dagger; our protocol-aligned reproduction; UniV2X is evaluated from the
+      released predictions. The standard configuration reaches a lower FDE than
+      the compared V2X planners and runs with lower latency, while MAP retains
+      the stronger command metrics. Trajectory accuracy against recorded ego
+      motion is an open-loop measurement, not a closed-loop safety evaluation.
+      The full table is in the
+      <a href="https://github.com/sidiangongyuan/CoVLM-Bench/blob/main/docs/RESULTS.md">repository</a>.
+    </p>
+
+    <div class="fig" style="margin-top:2.6rem">
+      <img src="static/images/planning_qualitative.jpg" alt="Qualitative comparison of predicted trajectories">
+    </div>
+    <p class="caption">Predicted trajectories compared with the recorded ego motion.</p>
+  </div>
+</section>
+
+<!-- ========================================================== roadmap -->
+<section class="section section-alt" id="release">
+  <div class="wrap-narrow">
+    <h2 class="section-title">Release status</h2>
+    <p class="section-lead">
+      The repository is released in stages. Items are listed in intended order;
+      no dates are promised.
+    </p>
+    <ul class="road">
+      <li><span class="pill pill-done">Released</span><span>CoVLM-Drive training, evaluation, and the resolved configuration of every reported CP run</span></li>
+      <li><span class="pill pill-done">Released</span><span>Reproduction code and configurations for UniV2X, UniMM-V2X, and MAP</span></li>
+      <li><span class="pill pill-done">Released</span><span>Cooperative planning results and table-building scripts</span></li>
+      <li><span class="pill pill-soon">Coming soon</span><span>CDQA annotations and the neutral object catalog</span></li>
+      <li><span class="pill pill-soon">Coming soon</span><span>CDQA evaluation protocol, prompts, and scorer</span></li>
+      <li><span class="pill pill-soon">Coming soon</span><span>Three-part rationale annotation store</span></li>
+      <li><span class="pill pill-soon">Coming soon</span><span>Annotation generation and verification pipeline</span></li>
+      <li><span class="pill pill-soon">Coming soon</span><span>Zero-shot planning and zero-shot CDQA baseline drivers</span></li>
+      <li><span class="pill pill-soon">Coming soon</span><span>CoVLM-Drive checkpoints</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- =========================================================== bibtex -->
+<section class="section" id="citation">
+  <div class="wrap-narrow">
+    <h2 class="section-title">Citation</h2>
+    <pre class="bib">@misc{covlmbench,
+  title  = {CoVLM-Bench: A Real-World Benchmark for Cooperative Driving
+            Question Answering and Planning},
+  note   = {Preprint coming soon},
+  year   = {2026}
+}</pre>
+  </div>
+</section>
+
+<!-- =========================================================== footer -->
+<footer class="foot">
+  <div class="wrap-narrow">
+    <p>
+      CoVLM-Bench is built on paired frames from
+      <a href="https://github.com/AIR-THU/DAIR-V2X-Seq">V2X-Seq-SPD / DAIR-V2X-Seq</a>;
+      the underlying images and cooperative labels follow that dataset's own
+      access terms and are not redistributed.
+    </p>
+    <p>
+      Code released under Apache-2.0 and derived in part from
+      <a href="https://github.com/AIR-THU/UniV2X">UniV2X</a>.
+      Page design adapted from the
+      <a href="https://github.com/eliahuhorwitz/Academic-project-page-template">Academic Project Page Template</a>.
+    </p>
+  </div>
+</footer>
+
+<button class="to-top" id="to-top" aria-label="Back to top">&uarr;</button>
+<script src="static/js/index.js"></script>
+</body>
+</html>
